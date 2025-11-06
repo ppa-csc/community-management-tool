@@ -11,6 +11,8 @@ A clean, minimal boilerplate for quickly starting Cypress E2E tests with TypeScr
 - ✅ **Example Tests** - Sample test suite to get started quickly
 - ✅ **Fixtures** - Example fixture data setup
 
+Ich lerne heute Cypress
+
 ## 📋 Prerequisites
 
 - [Node.js](https://nodejs.org/) (v18 or higher recommended)
