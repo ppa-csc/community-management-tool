@@ -1,0 +1,25 @@
+{
+  "name": "cypress-boilerplate-template",
+  "version": "1.0.0",
+  "description": "A Cypress boilerplate template with TypeScript and pnpm",
+  "private": true,
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test": "cypress run"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.2",
+    "cypress": "^15.5.0",
+    "typescript": "^5.9.3"
+  },
+  "keywords": [
+    "cypress",
+    "typescript",
+    "e2e",
+    "testing",
+    "boilerplate"
+  ],
+  "author": "",
+  "license": "ISC"
+}
