@@ -21,3 +21,8 @@ Thumbs.db
 # Environment
 .env
 .env.local
+
+# Users
+.users.json
+cypress/fixtures/users.ts
+cypress.env.json
