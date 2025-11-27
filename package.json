@@ -1,7 +1,7 @@
 {
-  "name": "cypress-boilerplate-template",
+  "name": "cypress-playground",
   "version": "1.0.0",
-  "description": "A Cypress boilerplate template with TypeScript and pnpm",
+  "description": "Cypress E2E tests with TypeScript and pnpm",
   "private": true,
   "scripts": {
     "cypress:open": "cypress open",
@@ -12,14 +12,5 @@
     "@types/node": "^24.9.2",
     "cypress": "^15.5.0",
     "typescript": "^5.9.3"
-  },
-  "keywords": [
-    "cypress",
-    "typescript",
-    "e2e",
-    "testing",
-    "boilerplate"
-  ],
-  "author": "",
-  "license": "ISC"
+  }
 }

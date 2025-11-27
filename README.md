@@ -1,74 +1,51 @@
-# Cypress TypeScript Boilerplate Template
+# Cypress Playground
 
-A clean, minimal boilerplate for quickly starting Cypress E2E tests with TypeScript and pnpm.
+Cypress E2E tests with TypeScript, pnpm, and Keycloak authentication.
 
-## 🚀 Features
+## Prerequisites
 
-- ✅ **Cypress 15.5.0** - Latest version for E2E testing
-- ✅ **TypeScript 5.9.3** - Type-safe test writing
-- ✅ **pnpm** - Fast, disk space efficient package manager
-- ✅ **Custom Commands** - Pre-configured custom commands with TypeScript support
-- ✅ **Example Tests** - Sample test suite to get started quickly
-- ✅ **Fixtures** - Example fixture data setup
+- [Node.js](https://nodejs.org/) (v18+)
+- [pnpm](https://pnpm.io/)
 
-Ich lerne heute Cypress
-
-## 📋 Prerequisites
-
-- [Node.js](https://nodejs.org/) (v18 or higher recommended)
-- [pnpm](https://pnpm.io/) (v8 or higher)
-
-## 🛠️ Installation
+## Setup
 
 ```bash
-# Install dependencies
 pnpm install
 ```
 
-## 🏃 Usage
-
-### Open Cypress Test Runner (Interactive Mode)
+## Commands
 
 ```bash
-pnpm cypress:open
+pnpm cypress:open  # Open Cypress Test Runner
+pnpm cypress:run   # Run tests headlessly
+pnpm test          # Alias for cypress:run
 ```
 
-This opens the Cypress Test Runner where you can:
-
-- Choose between E2E Testing and Component Testing
-- Select a browser
-- Run tests interactively with live reloading
-
-### Run Tests Headlessly (CI Mode)
-
-```bash
-pnpm cypress:run
-# or
-pnpm test
-```
-
-This runs all tests in headless mode, perfect for CI/CD pipelines.
-
-## 📁 Project Structure
+## Project Structure
 
 ```
-CypressBoilerplateTemplate/
-├── cypress/
-│   ├── e2e/                    # E2E test files
-│   │   └── example.cy.ts       # Example test suite
-│   ├── fixtures/               # Test data fixtures
-│   │   └── example.json        # Example fixture data
-│   └── support/
-│       ├── commands.ts         # Custom Cypress commands
-│       └── e2e.ts             # Support file loaded before tests
-├── cypress.config.ts           # Cypress configuration
-├── tsconfig.json              # TypeScript configuration
-└── package.json               # Project dependencies and scripts
+cypress/
+├── e2e/           # Test files (*.cy.ts)
+├── fixtures/      # Test data
+└── support/
+    ├── commands.ts  # Custom commands
+    └── e2e.ts       # Support file
 ```
 
-## ✨ Custom Commands
+## Authentication
 
-This boilerplate includes example custom commands in `cypress/support/commands.ts`:
+Uses Keycloak with `cy.origin()` for cross-origin login. User credentials are configured in `cypress.env.json`:
+
+```json
+{
+  "user1": {
+    "name": "username",
+    "password": "password"
+  }
+}
+```
+
+## Custom Commands
 
 ### `cy.dataCy(value)`
 
@@ -78,67 +55,10 @@ Select elements by `data-cy` attribute:
 cy.dataCy("submit-button").click();
 ```
 
-### `cy.login(email, password)`
+### `cy.loginWithKeycloak()`
 
-Custom login command with session management:
-
-```typescript
-cy.login("user@example.com", "password123");
-```
-
-## 📝 Writing Tests
-
-Create new test files in the `cypress/e2e/` directory with the `.cy.ts` extension:
+Login via Keycloak with session caching:
 
 ```typescript
-describe("My Feature", () => {
-  beforeEach(() => {
-    cy.visit("https://your-app.com");
-  });
-
-  it("should do something", () => {
-    cy.get("button").click();
-    cy.url().should("include", "/success");
-  });
-});
+cy.loginWithKeycloak();
 ```
-
-## ⚙️ Configuration
-
-### Cypress Configuration (`cypress.config.ts`)
-
-Key settings:
-
-- `baseUrl`: Default base URL for `cy.visit()`
-- `viewportWidth/Height`: Default viewport size
-- `video`: Video recording on/off
-- `screenshotOnRunFailure`: Auto-screenshot on test failure
-
-### TypeScript Configuration (`tsconfig.json`)
-
-Configured for:
-
-- ES2022 target
-- Strict mode enabled
-- Cypress and Node type definitions
-
-## 🔧 Customization
-
-1. **Update Base URL**: Modify `baseUrl` in `cypress.config.ts` to match your application
-2. **Add Custom Commands**: Extend `cypress/support/commands.ts` with your own commands
-3. **Configure Fixtures**: Add test data to `cypress/fixtures/`
-4. **Adjust Viewport**: Change default viewport in `cypress.config.ts`
-
-## 📚 Resources
-
-- [Cypress Documentation](https://docs.cypress.io/)
-- [Cypress TypeScript Guide](https://docs.cypress.io/guides/tooling/typescript-support)
-- [pnpm Documentation](https://pnpm.io/)
-
-## 🤝 Contributing
-
-Feel free to customize this boilerplate for your specific needs!
-
-## 📄 License
-
-ISC
