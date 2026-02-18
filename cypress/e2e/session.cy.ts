@@ -20,7 +20,7 @@ describe('Login Test Suite with Sessions', () => {
     });
   });
 
-  it('1 should display dashboard after login', () => {
+  it('should display dashboard after login', () => {
     cy.visit('/');
     cy.url().should('include', '/dashboard');
     cy.contains('h1', 'Dashboard').should('be.visible');
@@ -29,9 +29,6 @@ describe('Login Test Suite with Sessions', () => {
   describe('Navigate to Instagram', () => {
     beforeEach(() => {
       cy.visit('/');
-      cy.on('uncaught:exception', (err, runnable) => {
-        return false;
-      });
     });
 
     it('should navigate to Instagram page', () => {
@@ -48,8 +45,9 @@ describe('Login Test Suite with Sessions', () => {
     it('should have the toggle button enabled by default', () => {
       cy.navigateToInstagramComments();
 
-      cy.get('button[role="switch"]').should('be.enabled');
-      cy.get('button[role="switch"]').should('not.have.attr', 'disabled');
+      cy.get('button[role="switch"]')
+        .should('be.enabled')
+        .should('not.have.attr', 'disabled');
     });
   });
 });
