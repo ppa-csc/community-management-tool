@@ -1,5 +1,3 @@
-const login = (sessionName: string) => {};
-
 describe('Login Test Suite with Sessions', () => {
   beforeEach(() => {
     cy.session('sessionName', () => {
@@ -15,8 +13,10 @@ describe('Login Test Suite with Sessions', () => {
           cy.get("input[type='submit']").click();
         },
       );
-      cy.url().should('include', '/dashboard');
-      cy.contains('h1', 'Dashboard').should('be.visible');
+      
+      // Wait for redirect back to main app and then to dashboard
+      cy.url({ timeout: 15000 }).should('include', '/dashboard');
+      cy.contains('h1', 'Dashboard', { timeout: 15000 }).should('be.visible');
     });
   });
 
@@ -26,9 +26,30 @@ describe('Login Test Suite with Sessions', () => {
     cy.contains('h1', 'Dashboard').should('be.visible');
   });
 
-  it('2 should display dashboard after login', () => {
-    cy.visit('/');
-    cy.url().should('include', '/dashboard');
-    cy.contains('h1', 'Dashboard').should('be.visible');
+  describe('Navigate to Instagram', () => {
+    beforeEach(() => {
+      cy.visit('/');
+      cy.on('uncaught:exception', (err, runnable) => {
+        return false;
+      });
+    });
+
+    it('should navigate to Instagram page', () => {
+      cy.get('button').contains('Instagram').should('be.visible').click();
+      cy.get('button').contains('Kommentare').should('be.visible').click();
+      cy.get('[role="treeitem"]')
+        .contains('Offen')
+        .should('be.visible')
+        .click();
+      cy.url().should('include', '/instagram/comments');
+      cy.contains('h1', 'Kommentare').should('be.visible');
+    });
+
+    it('should have the toggle button enabled by default', () => {
+      cy.navigateToInstagramComments();
+
+      cy.get('button[role="switch"]').should('be.enabled');
+      cy.get('button[role="switch"]').should('not.have.attr', 'disabled');
+    });
   });
 });
