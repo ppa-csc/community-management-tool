@@ -17,9 +17,21 @@ declare global {
 
       /**
        * Custom command to navigate to Instagram comments section
+       * @example cy.navigateToComments('platform')
+       */
+      navigateToComments(platform: string): Chainable<JQuery<HTMLElement>>;
+
+      /**
+       * Custom command to navigate to Instagram comments section
        * @example cy.navigateToInstagramComments()
        */
-      navigateToInstagramComments(): Chainable<void>;
+      navigateToInstagramComments(): Chainable<JQuery<HTMLElement>>;
+
+      /**
+       * Custom command to find an input element by its name attribute
+       * @example cy.findInput('username')
+       */
+      findInput(name: string): Chainable<JQuery<HTMLElement>>;
     }
   }
 }
@@ -53,6 +65,21 @@ Cypress.Commands.add('navigateToInstagramComments', () => {
   cy.get('[role="treeitem"]').contains('Offen').should('be.visible').click();
   cy.url().should('include', '/instagram/comments');
   cy.contains('h1', 'Kommentare').should('be.visible');
+});
+
+// Cypress.Commands.add('navigateToComments', (platform: string) => {
+//   const capitalizedPlatform =
+//     platform.charAt(0).toUpperCase() + platform.slice(1);
+//   cy.get('button').contains(capitalizedPlatform).should('be.visible').click();
+//   cy.get('button').contains('Kommentare').should('be.visible').click();
+//   cy.get('[role="treeitem"]').contains('Offen').should('be.visible').click();
+//   // URL always uses lowercase
+//   cy.url().should('include', `/${platform.toLowerCase()}/comments`);
+//   cy.contains('h1', 'Kommentare').should('be.visible');
+// });
+
+Cypress.Commands.add('findInput', (name: string) => {
+  return cy.get(`input[name="${name}"]`).should('be.visible');
 });
 
 export {};
