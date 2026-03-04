@@ -1,0 +1,68 @@
+{
+  "emptyComments": {
+    "data": [],
+    "totalCommentsCount": 0,
+    "comments": [],
+    "highlightedCommentIds": [],
+    "page": 1,
+    "pageSize": 1000,
+    "totalPages": 0
+  },
+  "singleComment": {
+    "data": [
+      {
+        "27b378e0-b057-4fdd-b762-8209911a2218": []
+      }
+    ],
+    "totalCommentsCount": 1,
+    "comments": [
+      {
+        "commentProperties": ["unpinned", "visible"],
+        "id": "1",
+        "threadId": "1",
+        "parentId": "0",
+        "user": {
+          "id": 0,
+          "externalId": "2",
+          "profilePictureUrl": "",
+          "userName": "Dummy User",
+          "realName": "Dummy User",
+          "email": "",
+          "followerscCount": 0
+        },
+        "post": {
+          "id": "post_1",
+          "externalId": "2",
+          "teaser": "Dummy Post"
+        },
+        "text": "#test",
+        "tags": [
+          {
+            "name": "hashtag",
+            "markupElements": ["#test"],
+            "score": 100
+          },
+          {
+            "name": "unsafe",
+            "markupElements": [],
+            "score": 100
+          }
+        ],
+        "labelIds": [],
+        "createdAt": "2024-01-01T00:00:00.000Z",
+        "modifiedAt": "2024-01-01T00:00:00.000Z",
+        "status": "pending",
+        "children": [],
+        "unsafetyScore": 100,
+        "isUnsafe": true,
+        "unsafetyReason": "",
+        "similarCommentHash": "v1:95a54c5b220848cdd6ba2371d4f842ac7625f1eee9bc843ee550846b96a12730",
+        "similarComment": false
+      }
+    ],
+    "highlightedCommentIds": ["1"],
+    "page": 1,
+    "pageSize": 1000,
+    "totalPages": 1
+  }
+}
