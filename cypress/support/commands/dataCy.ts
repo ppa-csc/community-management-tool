@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 declare global {
   namespace Cypress {
     interface Chainable {
@@ -7,13 +5,13 @@ declare global {
        * Custom command to select DOM element by data-cy attribute.
        * @example cy.dataCy('submit-button')
        */
-      dataCy(value: string): Chainable<JQuery<HTMLElement>>;
+      dataCy(id: string): Chainable<Element>;
     }
   }
 }
 
-Cypress.Commands.add('dataCy', (value: string) => {
-  return cy.get(`[data-cy=${value}]`);
+Cypress.Commands.add('dataCy', (id: string) => {
+  cy.get(`[data-cy=${id}]`);
 });
 
-export {};
+// export {};
