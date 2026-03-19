@@ -1,0 +1,13 @@
+node_modules
+cypress/screenshots
+cypress/videos
+cypress/downloads
+test-results
+.git
+.gitignore
+.github
+.vscode
+.idea
+.DS_Store
+\*.log
+README.md

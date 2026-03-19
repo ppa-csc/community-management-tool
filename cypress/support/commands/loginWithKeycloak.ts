@@ -1,10 +1,14 @@
 /// <reference types="cypress" />
 
+import { LoginPage } from '../pages/LoginPage';
+import { DashboardPage } from '../pages/DashboardPage';
+
 declare global {
   namespace Cypress {
     interface Chainable {
       /**
-       * Custom command to login via Keycloak
+       * Custom command to login via Keycloak with session caching.
+       * Uses the LoginPage and DashboardPage POMs internally.
        * @example cy.loginWithKeycloak()
        */
       loginWithKeycloak(): Chainable<void>;
@@ -13,21 +17,13 @@ declare global {
 }
 
 Cypress.Commands.add('loginWithKeycloak', () => {
+  const loginPage = new LoginPage();
+  const dashboardPage = new DashboardPage();
+
   cy.session('keycloak-session', () => {
     cy.visit('/');
-    cy.get('button').contains('Anmelden').click();
-
-    cy.origin(
-      'https://ppa-cmt-app-keycloak-ppa-dev.wonderfulflower-755a37d4.westeurope.azurecontainerapps.io',
-      () => {
-        const user = Cypress.env('user1');
-        cy.get("input[name='username']").type(user.name);
-        cy.get("input[name='password']").type(user.password);
-        cy.get("input[type='submit']").click();
-      },
-    );
-
-    cy.url().should('include', '/dashboard');
+    loginPage.loginViaKeycloak();
+    dashboardPage.assertIsLoaded();
   });
 });
 

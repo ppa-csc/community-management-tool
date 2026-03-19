@@ -6,9 +6,13 @@
   "scripts": {
     "cypress:open": "cypress open --browser chrome",
     "cypress:run": "cypress run --browser chrome",
-    "test": "cypress run --browser chrome"
+    "test": "cypress run --browser chrome",
+    "test:smoke": "cypress run --browser chrome --env grepTags=@smoke",
+    "test:regression": "cypress run --browser chrome --env grepTags=@regression",
+    "test:docker": "docker compose up --build --exit-code-from cypress"
   },
   "devDependencies": {
+    "@cypress/grep": "^6.0.0",
     "@testing-library/cypress": "^10.1.0",
     "@types/node": "^24.9.2",
     "cypress": "^15.5.0",

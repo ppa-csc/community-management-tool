@@ -1,0 +1,9 @@
+services:
+  cypress:
+    build: .
+    environment:
+      - CYPRESS_BASE_URL=${CYPRESS_BASE_URL:-https://ppacmt2websitedev.z6.web.core.windows.net}
+    volumes:
+      - ./cypress/screenshots:/e2e/cypress/screenshots
+      - ./cypress/videos:/e2e/cypress/videos
+      - ./cypress.env.json:/e2e/cypress.env.json:ro
