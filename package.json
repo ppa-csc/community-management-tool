@@ -14,6 +14,8 @@
     "format:check": "prettier --check ."
   },
   "devDependencies": {
+    "@azure/cosmos": "^4.9.2",
+    "@azure/identity": "^4.13.1",
     "@cypress/grep": "^5.1.0",
     "@testing-library/cypress": "^10.1.0",
     "@types/node": "^24.9.2",

@@ -1,5 +1,10 @@
 import { defineConfig } from 'cypress';
 import { plugin as grepPlugin } from '@cypress/grep/plugin';
+import {
+  seedItems,
+  clearItems,
+  queryItems,
+} from './cypress/support/tasks/cosmosdb';
 
 export default defineConfig({
   e2e: {
@@ -8,6 +13,13 @@ export default defineConfig({
     supportFile: 'cypress/support/e2e.ts',
     setupNodeEvents(on, config) {
       grepPlugin(config);
+
+      on('task', {
+        seedItems,
+        clearItems,
+        queryItems,
+      });
+
       return config;
     },
   },
