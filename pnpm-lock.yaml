@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@cypress/grep':
-        specifier: ^6.0.0
-        version: 6.0.0(@babel/core@7.29.0)(cypress@15.5.0)
+        specifier: ^5.1.0
+        version: 5.1.0(@babel/core@7.29.0)(cypress@15.5.0)
       '@testing-library/cypress':
         specifier: ^10.1.0
         version: 10.1.0(cypress@15.5.0)
@@ -20,6 +20,9 @@ importers:
       cypress:
         specifier: ^15.5.0
         version: 15.5.0
+      prettier:
+        specifier: ^3.8.1
+        version: 3.8.1
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -107,10 +110,10 @@ packages:
     resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==}
     engines: {node: '>=6.9.0'}
 
-  '@cypress/grep@6.0.0':
-    resolution: {integrity: sha512-n3PCeqt8OwmLFz310igbRUm3qDE5WJgM9LW+2ejdULfMu2Sudqg3UX8koC8/JU/+ZcJ5UbaQAap1Nbi0QvzXwA==}
+  '@cypress/grep@5.1.0':
+    resolution: {integrity: sha512-n/8m5g2AuZf4thHhuo+rp7Fgkfm06k0uM9NlP0GrfWE5vaIJJ+8U10SOtjVj9bapjYI7l9RZiT87XSBU3wBFOA==}
     peerDependencies:
-      cypress: '>=15.10.0'
+      cypress: '>=10'
 
   '@cypress/request@3.0.9':
     resolution: {integrity: sha512-I3l7FdGRXluAS44/0NguwWlO83J18p0vlr2FYHrJkWdNYhgVoiYo61IXPqaOsL+vNxU1ZqMACzItGK3/KKDsdw==}
@@ -776,6 +779,11 @@ packages:
     resolution: {integrity: sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==}
     engines: {node: '>=0.10.0'}
 
+  prettier@3.8.1:
+    resolution: {integrity: sha512-UOnG6LftzbdaHZcKoPFtOcCKztrQ57WkHDeRD9t/PTQtmT0NHSeWWepj6pS0z/N7+08BHFDQVUrfmfMRcZwbMg==}
+    engines: {node: '>=14'}
+    hasBin: true
+
   pretty-bytes@5.6.0:
     resolution: {integrity: sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==}
     engines: {node: '>=6'}
@@ -1126,7 +1134,7 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
-  '@cypress/grep@6.0.0(@babel/core@7.29.0)(cypress@15.5.0)':
+  '@cypress/grep@5.1.0(@babel/core@7.29.0)(cypress@15.5.0)':
     dependencies:
       cypress: 15.5.0
       debug: 4.4.3(supports-color@8.1.1)
@@ -1815,6 +1823,8 @@ snapshots:
   picomatch@4.0.3: {}
 
   pify@2.3.0: {}
+
+  prettier@3.8.1: {}
 
   pretty-bytes@5.6.0: {}
 

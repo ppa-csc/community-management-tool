@@ -25,6 +25,8 @@ pnpm test              # Alias for cypress:run
 pnpm test:smoke        # Run only @smoke tests
 pnpm test:regression   # Run only @regression tests
 pnpm test:docker       # Run tests in Docker (no local dependencies needed)
+pnpm format            # Format all files with Prettier
+pnpm format:check      # Check formatting without modifying files
 ```
 
 ## Test Tagging
@@ -82,27 +84,30 @@ Screenshots and videos are written to `cypress/screenshots/` and `cypress/videos
 
 ```
 cypress/
-├── e2e/                          # Test files (*.cy.ts)
-│   ├── instagram-comments.cy.ts  # Instagram comments with API intercepts
-│   ├── session.cy.ts             # Session-based login & navigation tests
-│   └── test.cy.ts                # Basic login smoke test
-├── fixtures/                     # Test data (JSON)
-│   └── comments.json             # Mock comment data
+├── e2e/                               # Test files (*.cy.ts)
+│   ├── instagram-comments.cy.ts       # Instagram comments with API intercepts
+│   ├── instagram-comments-load.cy.ts  # Comment loading with focus mode toggle
+│   ├── instagram-posts.cy.ts          # Instagram posts loading
+│   ├── session.cy.ts                  # Session-based login & navigation tests
+│   └── test.cy.ts                     # Basic login smoke test
+├── fixtures/                          # Test data (JSON)
+│   └── comments.json                  # Mock comment data
 └── support/
-    ├── commands.ts               # Imports all custom commands
-    ├── e2e.ts                    # Support file (loaded before every spec)
-    ├── index.d.ts                # Global type declarations
-    ├── commands/                 # Custom Cypress commands
+    ├── commands.ts                    # Imports all custom commands
+    ├── e2e.ts                         # Support file (loaded before every spec)
+    ├── index.d.ts                     # Global type declarations
+    ├── commands/                      # Custom Cypress commands
     │   ├── dataCy.ts
     │   ├── findInput.ts
     │   ├── loginWithKeycloak.ts
     │   ├── navigateToComments.ts
     │   └── navigateToInstagramComments.ts
-    └── pages/                    # Page Object Model (POM) classes
-        ├── index.ts              # Barrel export
+    └── pages/                         # Page Object Model (POM) classes
+        ├── index.ts                   # Barrel export
         ├── LoginPage.ts
         ├── DashboardPage.ts
-        └── InstagramCommentsPage.ts
+        ├── InstagramCommentsPage.ts
+        └── InstagramPostsPage.ts
 ```
 
 ## Page Object Model (POM)
@@ -110,22 +115,29 @@ cypress/
 Page objects encapsulate selectors and interactions for each page, keeping tests readable and maintainable.
 
 ```typescript
-import { DashboardPage, InstagramCommentsPage } from '../support/pages';
+import {
+  DashboardPage,
+  InstagramCommentsPage,
+  InstagramPostsPage,
+} from '../support/pages';
 
 const dashboardPage = new DashboardPage();
 const commentsPage = new InstagramCommentsPage();
+const postsPage = new InstagramPostsPage();
 
 dashboardPage.assertIsLoaded();
 commentsPage.navigate();
-commentsPage.assertEmptyState();
-commentsPage.interceptComments(fixtureData);
+commentsPage.assertCommentCardsOrEmptyState();
+postsPage.navigateToAllPosts();
+postsPage.assertPostListOrEmptyState();
 ```
 
-| Page Object             | Responsibility                                                |
-| ----------------------- | ------------------------------------------------------------- |
-| `LoginPage`             | "Anmelden" button click and Keycloak `cy.origin()` login flow |
-| `DashboardPage`         | Assert dashboard URL and heading                              |
-| `InstagramCommentsPage` | Sidebar navigation, comment assertions, API intercept helper  |
+| Page Object             | Responsibility                                                    |
+| ----------------------- | ----------------------------------------------------------------- |
+| `LoginPage`             | "Anmelden" button click and Keycloak `cy.origin()` login flow     |
+| `DashboardPage`         | Assert dashboard URL and heading                                  |
+| `InstagramCommentsPage` | Comment navigation, focus mode toggle, API intercept, empty state |
+| `InstagramPostsPage`    | Post navigation (all/open), post list assertions, empty state     |
 
 ## Authentication
 

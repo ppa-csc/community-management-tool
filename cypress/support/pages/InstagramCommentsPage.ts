@@ -39,6 +39,38 @@ export class InstagramCommentsPage {
       .should('not.have.attr', 'disabled');
   }
 
+  toggleFocusMode() {
+    cy.get('button[role="switch"]').click();
+  }
+
+  assertCommentCardsVisible(timeout = 15000) {
+    cy.get('img[alt="three-dots-icon"]', { timeout }).should('be.visible');
+  }
+
+  interceptCommentsLoad(alias = 'commentsLoad') {
+    cy.intercept('GET', '**/api/v1/comments/direct?*').as(alias);
+  }
+
+  assertCommentCardsOrEmptyState(timeout = 15000) {
+    cy.wait('@commentsLoad').then((interception) => {
+      const body = interception.response?.body;
+      const hasData =
+        body?.comments?.length > 0 || body?.totalCommentsCount > 0;
+
+      if (hasData) {
+        cy.log('**API returned comments — expecting cards**');
+        cy.get('img[alt="three-dots-icon"]', { timeout }).should('be.visible');
+      } else {
+        cy.log('**API returned no comments — expecting empty state**');
+        cy.contains(this.emptyStateText, { timeout }).should('be.visible');
+      }
+    });
+  }
+
+  getLatestCommentDate() {
+    return cy.get('div[aria-hidden="true"]').first().invoke('text');
+  }
+
   interceptComments(body: unknown, alias = 'getComments') {
     cy.intercept('GET', '**/api/v1/comments/direct?*', {
       statusCode: 200,

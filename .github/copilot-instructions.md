@@ -11,8 +11,15 @@ Cypress E2E tests with TypeScript and pnpm.
 - `pnpm test:smoke` — Run only `@smoke` tests
 - `pnpm test:regression` — Run only `@regression` tests
 - `pnpm test:docker` — Run tests in Docker (no local dependencies needed)
+- `pnpm format` — Format all files with Prettier
+- `pnpm format:check` — Check formatting without modifying files
 
 ## Code Style
+
+### Formatting
+
+- Uses **Prettier** for consistent formatting (see `.prettierrc`).
+- Single quotes, semicolons, trailing commas, 80-char print width, 2-space indentation.
 
 ### Comments
 
@@ -37,8 +44,33 @@ All page interactions and selectors live in Page Object classes under `cypress/s
 
 - One class per page or major component.
 - Selectors are `readonly` properties, not hardcoded in methods.
-- Methods are named with clear verbs: `navigate()`, `assertIsLoaded()`, `interceptComments()`.
+- Methods are named with clear verbs: `navigate()`, `assertIsLoaded()`, `interceptCommentsLoad()`.
 - Tests import POMs from the barrel export: `import { DashboardPage } from '../support/pages';`
+
+#### Available Page Objects
+
+| Page Object             | File                       | Responsibility                                                    |
+| ----------------------- | -------------------------- | ----------------------------------------------------------------- |
+| `LoginPage`             | `LoginPage.ts`             | "Anmelden" button click and Keycloak `cy.origin()` login flow     |
+| `DashboardPage`         | `DashboardPage.ts`         | Assert dashboard URL and heading                                  |
+| `InstagramCommentsPage` | `InstagramCommentsPage.ts` | Comment navigation, focus mode toggle, API intercept, empty state |
+| `InstagramPostsPage`    | `InstagramPostsPage.ts`    | Post navigation (all/open), post list assertions, empty state     |
+
+### Empty State Handling
+
+Lists (comments, posts) can be empty in production — this is not a bug. Page Objects provide two assertion strategies:
+
+- **Strict:** `assertCommentCardsVisible()` / `assertPostListVisible()` — expects content to exist. Use when the test specifically needs items (e.g. checking a date).
+- **Tolerant:** `assertCommentCardsOrEmptyState()` / `assertPostListOrEmptyState()` — passes whether items exist or the empty state message is shown. Use for general "page loaded successfully" checks.
+
+For comments, the tolerant assertion uses `cy.wait()` on an intercepted API response and inspects the response body to decide which DOM state to expect. This avoids race conditions with transient empty states during loading.
+
+```typescript
+commentsPage.interceptCommentsLoad();
+cy.visit('/');
+commentsPage.navigate();
+commentsPage.assertCommentCardsOrEmptyState();
+```
 
 ### Custom Commands
 

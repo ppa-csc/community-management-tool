@@ -9,13 +9,16 @@
     "test": "cypress run --browser chrome",
     "test:smoke": "cypress run --browser chrome --env grepTags=@smoke",
     "test:regression": "cypress run --browser chrome --env grepTags=@regression",
-    "test:docker": "docker compose up --build --exit-code-from cypress"
+    "test:docker": "docker compose up --build --exit-code-from cypress",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "devDependencies": {
-    "@cypress/grep": "^6.0.0",
+    "@cypress/grep": "^5.1.0",
     "@testing-library/cypress": "^10.1.0",
     "@types/node": "^24.9.2",
     "cypress": "^15.5.0",
+    "prettier": "^3.8.1",
     "typescript": "^5.9.3"
   }
 }
